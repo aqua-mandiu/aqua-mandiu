@@ -1,13 +1,268 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aqua-Mandiu</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f7eb">
+  <meta name="description" content="Conheça o Aqua-Mandiú, projeto científico que investiga o potencial da casca de mandioca como auxiliar na floculação e sedimentação de partículas.">
+  <title>Aqua-Mandiú</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Patrick+Hand&display=swap');
+    :root {
+      --cream: #fbf9ee; --paper: #fffef8; --green: #b8ed76;
+      --green-light: #e9f8d9; --green-dark: #236a48; --purple: #32117f;
+      --purple-light: #eee7ff; --blue-light: #e4f7fc; --ink: #20115d;
+      --muted: #514b70; --line: rgba(50,17,127,.15);
+      --shadow: 0 12px 30px rgba(43,23,96,.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--ink);
+      background: radial-gradient(ellipse at 0% 15%, rgba(184,237,118,.28), transparent 26rem),
+                  radial-gradient(ellipse at 100% 45%, rgba(202,185,255,.28), transparent 25rem), var(--cream);
+      font-family: 'Nunito','Segoe UI',sans-serif; line-height: 1.65;
+    }
+    a { color: inherit; }
+    .site-header { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; padding: 15px clamp(20px,5vw,68px); background: rgba(255,254,248,.92); border-bottom: 1px solid rgba(50,17,127,.09); backdrop-filter: blur(12px); }
+    .brand { display: flex; align-items: center; gap: 9px; text-decoration: none; font-weight: 900; font-size: clamp(1.2rem,2.3vw,1.7rem); letter-spacing: -.04em; color: var(--purple); }
+    .brand-leaf { color: var(--green-dark); font-size: 1.7rem; transform: rotate(-18deg); display: inline-block; }
+    main { width: min(1160px,92%); margin: 0 auto; }
+    .hero { min-height: 400px; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 24px; padding: clamp(32px,6vw,70px) clamp(8px,3vw,30px) 45px; position: relative; isolation: isolate; }
+    .hero::before { content: ''; position: absolute; inset: 20px -5vw 0; background: linear-gradient(135deg,rgba(218,246,190,.75),rgba(255,254,248,.25) 55%,rgba(230,219,255,.55)); border-radius: 46% 54% 18px 18px / 12% 16% 18px 18px; z-index: -1; }
+    h1 { margin: 15px 0 0; font-size: clamp(3.1rem,7vw,5.5rem); line-height: .96; letter-spacing: -.075em; color: var(--purple); }
+    .title-underline { width: min(290px,95%); height: 8px; margin: 12px 0 19px; border-radius: 50%; border-top: 5px solid #70ad50; transform: rotate(-2deg); }
+    .tagline { margin: 0 0 22px; font-size: .83rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+    .hero h2 { font-size: clamp(1.25rem,2.3vw,1.65rem); line-height: 1.25; margin: 0 0 12px; max-width: 540px; }
+    .hero p { max-width: 570px; margin: 0; color: #403765; }
+    .hero-art { min-height: 280px; display: grid; place-items: center; position: relative; }
+    .hero-art::before { content: ''; width: min(320px,78%); aspect-ratio: 1; position: absolute; border-radius: 48% 52% 63% 37% / 45% 40% 60% 55%; background: #d8f2bf; transform: rotate(-9deg); z-index: -1; }
+    .clean-art { width: 100%; max-width: 380px; height: auto; filter: drop-shadow(0 12px 12px rgba(42,31,77,.1)); }
+    .section-kicker { margin: 48px 0 14px; display: flex; align-items: center; gap: 12px; font-size: .78rem; font-weight: 900; text-transform: uppercase; letter-spacing: .16em; color: var(--green-dark); }
+    .section-kicker::after { content: ''; height: 1px; flex: 1; background: var(--line); }
+    .about-strip { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 20px; padding: 23px 28px; border: 1px solid #c7e7ac; border-radius: 24px; background: linear-gradient(110deg,#e8f8d9,#f8ffef); box-shadow: var(--shadow); }
+    .round-icon { display: grid; place-items: center; flex: 0 0 auto; width: 70px; height: 70px; border-radius: 50%; color: white; background: var(--green-dark); font-size: 2rem; }
+    .about-strip h2,.card h2 { font-family: 'Patrick Hand',cursive; font-size: clamp(1.55rem,2.8vw,2.15rem); line-height: 1.05; margin: 0; }
+    .about-strip p { margin: 8px 0 0; max-width: 850px; }
+    .cards { display: grid; gap: 15px; margin: 16px 0 40px; }
+    .card { border: 1px solid var(--line); border-radius: 23px; overflow: hidden; box-shadow: 0 8px 22px rgba(43,23,96,.045); transition: transform .2s,box-shadow .2s; }
+    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .card:nth-child(1) { background: linear-gradient(110deg,#ffe5e3,#fff8f6); border-color: #f4b8b4; }
+    .card:nth-child(2) { background: linear-gradient(110deg,#e2efff,#f7faff); border-color: #b5d1fa; }
+    .card:nth-child(3) { background: linear-gradient(110deg,#ffead6,#fff9f1); border-color: #f3c69b; }
+    .card:nth-child(4) { background: linear-gradient(110deg,#eee5ff,#faf7ff); border-color: #d1bdf7; }
+    .card summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 72px 1fr 28px; align-items: center; gap: 18px; padding: 20px 24px; min-height: 112px; }
+    .card summary::-webkit-details-marker { display: none; }
+    .card summary:focus-visible { outline: 3px solid #8b70e5; outline-offset: -4px; border-radius: 20px; }
+    .card .round-icon { background: #c94343; }
+    .card:nth-child(2) .round-icon { background: #2869b5; }
+    .card:nth-child(3) .round-icon { background: #cf711d; }
+    .card:nth-child(4) .round-icon { background: #6840b5; }
+    .chevron { width: 28px; height: 28px; display: grid; place-items: center; font-size: 1.5rem; font-weight: 900; transition: transform .2s; }
+    details[open] .chevron { transform: rotate(180deg); }
+    .details-content { border-top: 1px dashed rgba(50,17,127,.2); padding: 8px 32px 25px 114px; color: #3d355f; }
+    .card:nth-child(1) .details-content { border-top-color: #e9b0ac; }
+    .card:nth-child(2) .details-content { border-top-color: #b5d1fa; }
+    .card:nth-child(3) .details-content { border-top-color: #f3c69b; }
+    .card:nth-child(4) .details-content { border-top-color: #d1bdf7; }
+    .details-content p { margin: 12px 0 0; }
+    .details-content ul { margin: 10px 0 0; padding-left: 20px; }
+    .details-content li { margin: 7px 0; }
+    .references-section { margin: 40px 0 60px; padding: clamp(24px,5vw,40px); border-radius: 24px; background: linear-gradient(135deg,#32117f,#4d23a7); color: white; text-align: center; box-shadow: var(--shadow); }
+    .references-section h2 { font-family: 'Patrick Hand',cursive; font-size: 2.2rem; margin: 0 0 10px; color: #b8ed76; }
+    .references-section p { max-width: 700px; margin: 0 auto 24px; opacity: .94; }
+    .drive-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--green); color: var(--ink); font-weight: 900; padding: 14px 28px; border-radius: 999px; text-decoration: none; transition: transform .2s,background .2s; box-shadow: 0 4px 14px rgba(0,0,0,.15); }
+    .drive-btn:hover { background: #cbf594; transform: translateY(-2px); }
+    .footer { position: relative; overflow: hidden; margin-top: 50px; padding: 38px 20px 28px; text-align: center; background: var(--purple); color: white; }
+    .footer::before { content: ''; position: absolute; left: -5%; right: -5%; top: -27px; height: 48px; border-radius: 50% 50% 0 0; background: var(--green); }
+    .footer .footer-leaves { font-size: 1.5rem; color: var(--green); letter-spacing: .5rem; }
+    .footer p { margin: 7px 0; font-weight: 700; }
+    .tiny { font-size: .78rem; opacity: .8; }
+    @media (max-width:760px) {
+      .hero { grid-template-columns: 1fr; padding-top: 35px; gap: 0; }
+      .hero-art { min-height: 240px; }
+      .about-strip { grid-template-columns: auto 1fr; padding: 20px; gap: 14px; }
+      .card summary { grid-template-columns: 56px 1fr 24px; gap: 13px; padding: 18px; }
+      .card .round-icon { width: 55px; height: 55px; font-size: 1.6rem; }
+      .details-content { padding: 5px 20px 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *,*::before,*::after { transition: none !important; } }
+.ods-aqua {
+  margin: 45px 0;
+}
+
+.ods-aqua h2 {
+  color: #1d0056;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.ods-aqua-intro {
+  text-align: center;
+  margin-bottom: 22px;
+  line-height: 1.6;
+}
+
+.ods-aqua-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.ods-aqua-card {
+  background: #d9f5c9;
+  border: 2px solid #83c96b;
+  border-radius: 18px;
+  padding: 22px 18px;
+  box-shadow: 0 5px 0 #a7d995;
+  transition: transform 0.2s ease;
+}
+
+.ods-aqua-card:hover {
+  transform: translateY(-4px);
+}
+
+.ods-aqua-numero {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #24703b;
+  margin-bottom: 8px;
+}
+
+.ods-aqua-card h3 {
+  color: #205c32;
+  font-size: 1.08rem;
+  margin: 0 0 12px;
+}
+
+.ods-aqua-card p {
+  color: #294b30;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .ods-aqua-grid {
+    grid-template-columns: 1fr;
+  }
+}
+ </style>
 </head>
 <body>
+  <header class="site-header">
+    <a class="brand" href="#inicio"><span class="brand-leaf" aria-hidden="true">❋</span>Aqua-Mandiú</a>
+  </header>
 
-    <h1 style="text-align: center; margin-top: 50px; font-family: sans-serif;">Aqua-Mandiu</h1>
+  <main id="inicio">
+    <section class="hero" aria-labelledby="titulo-principal">
+      <div class="hero-copy">
+        <h1 id="titulo-principal">Aqua-Mandiú</h1>
+        <div class="title-underline" aria-hidden="true"></div>
+        <p class="tagline">Inovação sustentável para tratamento de águas residuais</p>
+        <h2>Pesquisa realizada pelos alunos da primeira série do ensino médio do Colégio São Salvador para a Feira de Ciências do ano de 2026.</h2>
+      </div>
+      <div class="hero-art" role="img" aria-label="Ilustração de mandioca, folhas e um recipiente com água e partículas sedimentadas">
+        <svg class="clean-art" viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M110 117C79 79 48 93 43 108C75 108 91 117 110 117Z" fill="#b8ed76" stroke="#236a48" stroke-width="4"/>
+          <path d="M124 111C145 70 177 78 190 92C160 91 143 104 124 111Z" fill="#70ad50" stroke="#236a48" stroke-width="4"/>
+          <path d="M65 220C78 185 122 176 165 192C194 202 211 229 214 249C165 274 100 263 65 220Z" fill="#c68a4b" stroke="#754a2a" stroke-width="5"/>
+          <path d="M84 210C119 197 159 208 188 230" stroke="#f4d3ab" stroke-width="7" stroke-linecap="round"/>
+          <path d="M108 204L117 224M146 209L154 230" stroke="#754a2a" stroke-width="4" stroke-linecap="round"/>
+          <rect x="235" y="53" width="91" height="218" rx="23" fill="#e4f7fc" stroke="#1684a4" stroke-width="6"/>
+          <path d="M241 141C266 131 294 151 320 140V253C320 262 312 267 303 267H258C249 267 241 261 241 253V141Z" fill="#75cde2" fill-opacity=".65"/>
+          <path d="M241 141C266 131 294 151 320 140" stroke="#1684a4" stroke-width="4"/>
+          <rect x="254" y="26" width="53" height="31" rx="8" fill="#32117f" stroke="#20115d" stroke-width="4"/>
+          <g fill="#80502c"><circle cx="260" cy="246" r="5"/><circle cx="285" cy="252" r="6"/><circle cx="270" cy="231" r="4"/><circle cx="299" cy="239" r="5"/><circle cx="308" cy="257" r="3"/></g>
+          <g fill="#fffef8"><circle cx="264" cy="164" r="4"/><circle cx="293" cy="181" r="3"/><circle cx="279" cy="199" r="4"/><circle cx="305" cy="158" r="3"/></g>
+          <path d="M214 286C250 276 300 281 340 292" stroke="#70ad50" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </section>
 
+    <div class="section-kicker">Sobre o projeto</div>
+    <section class="about-strip" aria-labelledby="sobre-titulo">
+      <div class="round-icon" aria-hidden="true">❋</div>
+      <div><h2 id="sobre-titulo">O que é o Aqua-Mandiú?</h2><p>O Aqua-Mandiú estuda o potencial da casca de mandioca, associada a outros componentes, para favorecer a formação de flocos e a sedimentação de partículas. A proposta é investigar uma etapa auxiliar, e não substituir o tratamento completo de esgoto nem o saneamento básico.</p></div>
+    </section>
+
+    <div class="section-kicker">Pesquisa e experimentação</div>
+    <section class="cards" aria-label="Informações do projeto">
+      <details class="card">
+        <summary><span class="round-icon" aria-hidden="true">⚠</span><h2>Cenário do saneamento</h2><span class="chevron" aria-hidden="true">⌄</span></summary>
+        <div class="details-content"><p>O saneamento básico é um direito de todo mundo e serve para proteger a nossa saúde e a natureza. Ele é formado por quatro serviços que fazem toda a diferença no nosso dia a dia: água limpa na torneira, coleta e tratamento de esgoto, recolhimento do lixo e bueiros para escoar a água da chuva. Quando esses serviços faltam ou não funcionam direito, toda a comunidade acaba sofrendo. </p> <p>No estado de Sergipe, o maior problema está no esgoto, já que mais de 60% dos moradores não tem acesso à coleta de esgoto em casa. Para piorar, apenas 37,7% de todo o esgoto gerado passava por algum tipo de tratamento antes de ser jogado na natureza. Isso significa que a maior parte da sujeira produzida ia direto para o meio ambiente sem nenhuma limpeza.</p> <p>Essa situação fica ainda mais séria quando olhamos de perto para Umbaúba e Cristinápolis, duas cidades do sul do estado. Dados oficiais mostram que a rede pública de esgoto nessas duas cidades era praticamente igual a zero por cento. Sem os canos da prefeitura ou do estado na rua, as famílias são obrigadas a dar um jeito por conta própria, geralmente usando fossas no quintal. O problema é que essas soluções caseiras nem sempre são seguras e não protegem as pessoas de verdade. Quando o esgoto corre a céu aberto ou entra na terra sem tratamento, ele estraga a natureza e polui a água que os próprios moradores usam. Além disso, essa água suja traz muitas doenças perigosas, como diarreias fortes e verminoses. Por isso, esse problema mexe diretamente com a saúde e o bem-estar de todas as famílias.</p> <p>Pensando em tudo isso, fica uma pergunta muito importante: como podemos garantir saúde, uma vida melhor e proteção para a natureza nas comunidades que ainda sofrem com a falta do básico do saneamento?</p></div>
+      </details>
+
+      <details class="card">
+        <summary><span class="round-icon" aria-hidden="true">☑︎</span><h2>Objetivo da pesquisa</h2><span class="chevron" aria-hidden="true">⌄</span></summary>
+        <div class="details-content"><p>A nossa ideia principal é aproveitar a casca de mandioca, um resíduo muito comum na nossa região e que quase sempre vai para o lixo, para estudar como ela pode ajudar a limpar a água. A nossa proposta é criar uma mistura experimental usando a casca de mandioca em pó, o amido de mandioca e o bicarbonato de sódio. Quando colocamos essa mistura na água suja, acontece o processo de coagulação, que ajuda a desestabilizar a sujeira e faz com que os pequenos pedacinhos que estavam espalhados comecem a se unir. Com essa união, formam-se agrupamentos de sujeira chamados de flocos. Conforme esses flocos vão crescendo e ficando mais pesados, eles afundam e se acumulam no fundo do recipiente. Esse passo se chama decantação e é ele que facilita a separação, deixando a água muito mais limpa na parte de cima. </p> <p> É importante destacar que o AQUA-MANDIÚ não substitui as redes de coleta nem as estações de tratamento de esgoto. A proposta é estudar uma alternativa complementar e de baixo custo, baseada no reaproveitamento de resíduos.</p></div>
+      </details>
+
+      <details class="card">
+        <summary><span class="round-icon" aria-hidden="true">⁂</span><h2>Metodologia</h2><span class="chevron" aria-hidden="true">⌄</span></summary>
+        <div class="details-content"><p>Como não tínhamos equipamentos de laboratório, os testes foram realizados em casa, com materiais facilmente encontrados e métodos simples. Em vez de usar esgoto de verdade, o que seria perigoso para a saúde, criamos uma "água suja" artificial usando terra. Por causa disso, os resultados foram avaliados principalmente observando as mudanças na água.</p><ul><li><strong>Preparo da casca de mandioca:</strong> Primeiro, lavamos as cascas para tirar a sujeira, picamos e deixamos de molho na água por dois dias trocando a água na metade do tempo. Depois, deixamos secar ao sol e batemos tudo para virar um pó fininho. A imersão em água e a secagem ao sol acontecem para remover a toxicidade e deixar o pó seguro para o uso, porque a  mandioca fresca tem compostos cianogênicos, que são substâncias naturais da planta capazes de liberar um veneno perigoso.</li><li><strong>Água simulada:</strong> Para simular a sujeira do esgoto com segurança, misturamos 5 gramas de terra para cada 1 litro de água. Mexemos bem até a terra se espalhar por completo, deixando a água escura e turva. Depois, dividimos essa mistura em vários potes de 1 litro.</li><li><strong>Testes com o pó da mandioca:</strong> Testamos quatro quantidades diferentes do pó de mandioca na água suja, 0,1g, 0,5g, 1g e 2g. Também deixamos um pote sem nada para comparar. Depois de colocar o pó e mexer, deixamos a água descansar por 30 minutos para observar se a sujeira ia se juntar e afundar.</li><li><strong> Adição do amido de mandioca:</strong> Como o pó da casca sozinho não limpou a água perfeitamente, decidimos testar o amido de mandioca para ajudar. Mantivemos a quantidade de 1 grama do pó da casca e adicionamos três doses diferentes de amido, 10, 20 e 40 miligramas. O amido entra como um ajudante para agrupar as impurezas, facilitando a criação de flocos de sujeira para eles afundarem.</li><li><strong>Adicionando o bicarbonato de sódio:</strong> O bicarbonato de sódio foi testado nas quantidades de 5, 20 e 40 miligramas, junto com o pó da casca e o amido que funcionaram melhor antes. Usamos o bicarbonato porque ele ajuda a regular o ambiente químico da água. Observamos se ele mudava o visual da água, se ajudava a sujeira a ir para o fundo e como mudava a acidez.</li><li><strong>Adicionando o carvão ativado:</strong> Também tentamos usar o carvão ativado em pó, nas doses de 5, 20 e 40 miligramas. Porém, como o pó do carvão era fino demais e não foi lavado antes, ele acabou soltando partículas na água, deixando tudo muito escuro e ainda mais turvo. Como não deu para avaliar se ele realmente estava puxando a sujeira para si, decidimos deixar o carvão de fora da nossa mistura final.</li></div>
+      </details>
+
+      <details class="card">
+        <summary><span class="round-icon" aria-hidden="true">◉</span><h2>Conclusão e próximos passos</h2><span class="chevron" aria-hidden="true">⌄</span></summary>
+        <div class="details-content"><p>Os testes mostraram que a casca de mandioca realmente tem potencial para ajudar a juntar a sujeira e fazê-la afundar, facilitando a limpeza da água. No entanto, a melhora visual ainda foi pequena. A melhor combinação que encontramos foi usar 1g de pó de casca de mandioca, 40 mg de amido e 40 mg de bicarbonato de sódio para cada litro de água suja. O carvão ativado ficou de fora porque soltou partículas que escureceram a água.</p><p>O custo dos ingredientes ficou bem baixo, com cerca de 3,5 centavos por litro (R$ 0,0348), considerando os preços normais de mercado em pequena escala. Mesmo sendo barato, ainda precisamos de mais testes para saber se essa mistura funcionaria de verdade fora de casa.</p><p> Para dar continuidade ao projeto, os nossos planos para o futuro são:</p><p><ul><li><strong>Fazer testes mais precisos:</strong> Usar aparelhos de laboratório para medir a cor, a acidez (pH) e a turbidez de forma exata.</li><li><strong>Testar com efluentes reais:</strong> Experimentar a mistura em condições parecidas com as do esgoto de verdade, de preferência com a ajuda de um especialista.</li><li><strong>Melhorar a receita:</strong> Ver se dissolvemos o amido antes ou se mudamos o preparo da casca para conseguir resultados melhores.</li><li><strong>Dar uma nova chance ao carvão:</strong> Lavar o carvão ativado antes de usar para que ele não escureça a água, testando se ele consegue puxar as impurezas.</li></ul><p>O AQUA-MANDIÚ é o começo de uma pesquisa científica que busca transformar um resíduo comum da nossa região em uma alternativa ecológica, entendendo suas limitações e descobrindo até onde ela pode ajudar.</p></div>
+      </details>
+    </section>
+
+<section class="ods-aqua">
+  <h2>🌱Objetivos de Desenvolvimento Sustentável</h2>
+
+  <p class="ods-aqua-intro">
+    O AQUA-MANDIÚ se relaciona com três Objetivos de Desenvolvimento
+    Sustentável da ONU, conectando ciência, saneamento e sustentabilidade.
+  </p>
+
+  <div class="ods-aqua-grid">
+
+    <div class="ods-aqua-card">
+      <div class="ods-aqua-numero">ODS 6</div>
+      <h3>Água potável e saneamento</h3>
+      <p>
+        O projeto investiga uma alternativa experimental para auxiliar
+        na redução da sujeira visível da água, relacionando-se ao desafio
+        de ampliar o acesso ao saneamento.
+      </p>
+    </div>
+
+    <div class="ods-aqua-card">
+      <div class="ods-aqua-numero">ODS 11</div>
+      <h3>Cidades sustentáveis</h3>
+      <p>
+        Ao abordar a falta de infraestrutura de esgoto em comunidades
+        locais, o projeto destaca a importância de ambientes mais
+        saudáveis e de melhor qualidade de vida.
+      </p>
+    </div>
+
+    <div class="ods-aqua-card">
+      <div class="ods-aqua-numero">ODS 12</div>
+      <h3>Consumo responsável</h3>
+      <p>
+        A pesquisa reaproveita a casca de mandioca, um resíduo que
+        pode ganhar uma nova finalidade em estudos científicos
+        e iniciativas sustentáveis.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+    <section class="references-section" id="referencias">
+      <h2>Referências e documentos</h2>
+      <p>A pesquisa não foi realizada com base em achismo ou imaginação fértil, houve uma pesquisa prévia aprofundada na literatura científica. Consulte os artigos, documentos e fontes utilizados na pesquisa</p>
+      <a class="drive-btn" href="https://drive.google.com" target="_blank" rel="noopener noreferrer">📂 Abrir pasta no Google Drive</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-leaves" aria-hidden="true">―――</div>
+    <p>Colégio São Salvador&nbsp; • &nbsp;Umbaúba – SE&nbsp; • &nbsp;2026</p>
+    <div class="tiny">AQUA-MANDIÚ · CIÊNCIA NO DIA A DIA · FECISSA</div>
+  </footer>
 </body>
 </html>
